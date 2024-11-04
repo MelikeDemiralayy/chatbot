@@ -17,6 +17,7 @@ body{
 }
 
 .chatbot-popup{
+    position: relative;
     width: 420px;
     background: #fff;
     overflow:hidden ;
@@ -123,6 +124,90 @@ body{
     border-radius: 13px 13px 3px 13px;
 }
 
+.chat-body .bot-message .thinking-indicator .dot{
+  height: 7px;
+  width: 7px;
+  background: #6f6bc2;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: dotPulse 1.8s ease-in-out infinite;
+}
+
+.chat-body .bot-message .thinking-indicator{
+    display: flex;
+    gap: 4px;
+    padding-block: 15px;
+    animation: dotPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes dotPulse{
+
+   0%, 44%{
+    transform: translateY(0);
+   }
+
+
+   28%{
+    transform: translateY(-4px);
+    opacity: 0.4;
+   }
+
+
+   44%{
+
+    opacity: 0.2;
+   }
+}
+
+.chat-body .bot-message .thinking-indicator .dot:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.chat-body .bot-message .thinking-indicator .dot:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.chat-body .bot-message .thinking-indicator .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+
+.chat-body .bot-message.thinking .message-tex{
+   padding: 2px 16px;
+}
+
+
 .chat-footer{
     position: absolute;
+    width: 100%;
+    bottom: 0;
+    background:#fff;
+    padding: 15px 2px 20px;
+}
+
+.chat-footer .chat-form{
+    display: flex;
+    align-items: center;
+    background: #fff;
+    outline: 1px solid #cccce5 ;
+    border-radius: 32px;
+}
+
+.chat-form .message-input{
+    border:none;
+    outline: none;
+    height: 47px;
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 4px 0 13px 18px;
+    border-radius: inherit;
+    resize: none;
+}
+
+.chat-form .chat-controls{
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+    padding-right: 6px;
+
 }
