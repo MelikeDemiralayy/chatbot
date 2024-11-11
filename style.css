@@ -259,11 +259,49 @@ body{
     outline: 1px solid #cccce5;
     border-radius: 32px;
     padding: 8px 12px; 
-}   
+} 
+
+.chat-body .user-message .attachment{
+    width: 50%;
+    margin-top: -7px;
+    border-radius: 13px 3px 13px 13px;
+    
+}
+
+.chat-form .file-upload-wrapper {
+    height: 35px;
+    width: 35px;
+    position: relative;
+}
+
+.chat-form .file-upload-wrapper img{
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: none;
+}
 
 
+.chat-form .file-upload-wrapper :where(img, #file-cancel),
+.chat-footer .file-upload-wrapper .file-uploaded #file-upload{
+    display: none;
+}
+
+.chat-form .file-upload-wrapper.file-uploaded img,
+.chat-form .file-upload-wrapper .file-uploaded:hover #file-cancel {
+    display: block;
+}
 
 
+.chat-form .file-upload-wrapper :where(img,button){
+    position: absolute;
+}
+.chat-form .file-upload-wrapper #file-cancel{
+    color: #ff0000;
+    background: #fff;
+}
 
 
 
