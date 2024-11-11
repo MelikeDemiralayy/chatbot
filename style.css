@@ -254,6 +254,7 @@ body{
 
    .chat-footer .chat-form {
     display: flex;
+    position: relative;
     align-items: center;
     background: #fff;
     outline: 1px solid #cccce5;
@@ -304,4 +305,29 @@ body{
 }
 
 
+em-emoji-picker{
+    position: absolute;
+    left: 50%;
+    top: -337px;
+    width: 100%;
+    max-width: 350px;
+    max-height: 330px;
+    transform: translate(-50%);
+    visibility: hidden;
+}
 
+body.show-emoji-picker em-emoji-picker{
+  visibility: visible;
+}
+
+#chatbot-toggler{
+    position: fixed;
+    bottom: 30px;
+    right: 35px;
+    border: none;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+    background:#5350c4;
+}
