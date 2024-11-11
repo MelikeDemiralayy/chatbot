@@ -5,6 +5,8 @@ const sendMessageButton = document.querySelector("#send-message");
 const fileInput = document.querySelector("#file-input");
 const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
 const fileCancelButton = document.querySelector("#file-cancel");
+const chatBotToggler = document.querySelector("#chatbot-toggler");
+const closeChatbot = document.querySelector("#close-chatbot")
 
 const API_KEY = "AIzaSyCNXQOOBRGPFf3RSYBn1_DZUBjv9_KE1lo";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}` ;
@@ -17,6 +19,8 @@ const userData = {
         mime_type:null
     }
 }
+const chatHistory =[];
+const initialInputHeight = messageInput.scrollHeight;
 
 // mesaj elemanı oluşturmak için
 const createMessageElement = (content, ...classes) => {
@@ -29,13 +33,20 @@ const createMessageElement = (content, ...classes) => {
 
 const generateBotResponse = async(incomingMessageDiv) =>{
     const messageElement = incomingMessageDiv.querySelector(".message-text");
+    chatHistory.push({ 
+        role:"user",
+        parts: [
+          { text: userData.message }, 
+          ...(userData.file?.data ? [{ inline_data: userData.file }] : [])
+        ]
+      });
+      
+    
     const requestOptions = {
         method:"POST",
         headers:{"Content-Type": "application/json"},
         body: JSON.stringify({
-         contents: [{
-         parts:[{text: userData.message}, ...(userData.file.data ? [{inline_data: userData.file}]: [])]
-        }]
+         contents: chatHistory
         })
     }
     try {
@@ -44,6 +55,10 @@ const generateBotResponse = async(incomingMessageDiv) =>{
         if(!response.ok) throw new Error(data.error.message);
         const apiResponseText = data.candidates[0].content.parts[0].text.replace(/\*\*\((.*?)\)\*\*\*/g, "$1").trim();
         messageElement.innerText = apiResponseText;
+        chatHistory.push({ 
+            role:"model",
+            parts: [{text:apiResponseText}]});
+
     } catch (error) {
         console.log(error);
         messageElement.innerText = error.message;
@@ -63,6 +78,7 @@ const handleOutgoinMessage = (e) => {
     userData.message = messageInput.value.trim();
     messageInput.value = "";
     fileUploadWrapper.classList.remove("file-uploaded");
+    messageInput.dispatchEvent(new Event ("input"));
 
     const messageContent = `<div class="message-text">${userData.message}</div> ${userData.file.data ? `<img class="attachment" src="data:${userData.file.mime_type};base64,${userData.file.data}"/>` : ''}`;
     const outgoinMessageDiv = createMessageElement(messageContent, "user-message");
@@ -98,11 +114,18 @@ const handleOutgoinMessage = (e) => {
 
 messageInput.addEventListener("keydown", (e) => {
     const userMessage = e.target.value.trim();
-    if (e.key === "Enter" && userMessage) {
+    if (e.key === "Enter" && userMessage && !e.shiftKey && window.innerWidth > 768) {
         handleOutgoinMessage(e);
         e.target.value = "";
     }
 });
+
+messageInput.addEventListener("input", () =>{
+    messageInput.style.height = `${initialInputHeight}px`;
+    messageInput.style.height = `${messageInput.scrollHeight}px`;
+    document.querySelector(".chat-form").style.borderRadius= messageInput.scrollHeight>
+    initialInputHeight ? "15px":"32px";
+})
 
 fileInput.addEventListener("change", () => {
     const file = fileInput.files[0];
@@ -151,7 +174,7 @@ const picker = new EmojiMart.Picker({
 
 document.querySelector(".chat-form").appendChild(picker);
 
-sendMessageButton.addEventListener("click", (e) => handleOutgoinMessage(e))
+sendMessageButton.addEventListener("click", (e) => handleOutgoinMessage(e));
 document.querySelector("#file-upload").addEventListener("click",() => fileInput.click());
-
-
+chatBotToggler.addEventListener("click", () =>document.body.classList.toggle("show-chatbot"));
+closeChatbot.addEventListener("click",() => document.body.classList.remove("show-chatbot"));
