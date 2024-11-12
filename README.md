@@ -45,5 +45,5 @@ Dosyayı tarayıcıda açarak uygulamayı başlatın.
 - Google API: Bu projede, Google tarafından sunulan API'ler kullanılarak veri alışverişi sağlanmıştır. Google API'leri ile entegre edilen işlevler, veri yönetimi ve işlem hızını optimize etmeye yardımcı olmuştur.
 
 ## Demo:
-Uygulamanın canlı linline buradan ulaşabilirsiniz.
+Uygulamanın canlı linkine buradan ulaşabilirsiniz.
 Chatbot:  https://chatbot-teal-phi.vercel.app/
