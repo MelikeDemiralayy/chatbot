@@ -93,14 +93,18 @@ body.show-chatbot .chatbot-popup{
 .chat-body{
     padding: 25px 22px;
     display: flex;
-    gap: 20px;
+    gap: 10px;
     height: 460px;
     overflow-y:auto;
+    overflow-x: hidden;
     margin-bottom: 82px;
     flex-direction: column;
     scrollbar-width: thin;
     scrollbar-color: #ccccf5 transparent;
+    max-height: 500px;
+    flex-direction: column;
 }
+
 
 .chat-body .message{
     display: flex;
@@ -141,6 +145,8 @@ body.show-chatbot .chatbot-popup{
     color:#fff;
     background: #5350c4;
     border-radius: 13px 13px 3px 13px;
+    max-width: 75%; 
+    word-wrap: break-word;
 }
 
 .chat-body .bot-message .thinking-indicator .dot{
@@ -222,15 +228,21 @@ body.show-chatbot .chatbot-popup{
     border-radius: inherit;
     resize: none;
     margin: 0;
-    max-height: 180px;
     white-space: pre-line;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
+    overflow-y: auto; 
+    max-height: 180px; 
 
 }
  .chat-footer .message-input:hover{
     scrollbar-color: #ccccf5 transparent;
  }
+
+ .chat-body .message-text {
+    overflow-wrap: break-word; 
+    word-break: break-word; 
+}
 
 .chat-form .chat-controls{
     display: flex;
@@ -377,6 +389,27 @@ body.show-chatbot #chatbot-toggler{
     overflow-y: auto; 
     overflow-x: hidden; 
     max-height: 500px; 
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto; 
+    max-height: 500px; 
+}
+
+#chatbot-toggler span:first-child {
+    opacity: 1;
+}
+
+#chatbot-toggler span:last-child {
+    opacity: 0;
+}
+
+body.show-chatbot #chatbot-toggler span:first-child {
+    opacity: 0;
+}
+
+body.show-chatbot #chatbot-toggler span:last-child {
+    opacity: 1;
 }
 
 
@@ -399,16 +432,33 @@ body.show-chatbot #chatbot-toggler{
         padding: 12px 15px;
     }
 
-    .chat-body{
-        height: calc(90%-55px);
-        padding: 25px 15px;
+    .chat-body {
+        height: calc(100% - 90px); 
+        padding: 10px;
+        overflow-y: auto; 
     }
 
-    .chat-footer{
+    .chat-footer {
         padding: 10px 15px 15px;
     }
+
 
     .chat-form .file-upload-wrapper .file-upload-wrapper.file-cancel{
         opacity: 0;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
